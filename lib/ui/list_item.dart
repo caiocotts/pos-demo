@@ -16,6 +16,12 @@ class _ListItemState extends State<ListItem> {
   int _itemCount = 0;
 
   @override
+  void dispose() {
+    itemCounterMap.clear();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     _itemCount = itemCounterMap[widget.index] ?? 0;
