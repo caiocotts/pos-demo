@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pos/ui/subtotal_box.dart';
 
-final Map<int, int> itemCounterMap = {};
-final List<String> items = <String>[
+import '../ui/list_item.dart';
+
+final List<String> _items = <String>[
   'B COORS LIGHT',
   'B COORS ORIG',
   'B CREEMORE LG',
@@ -43,81 +45,22 @@ class ItemSelectionScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Expanded(
+              Flexible(
+                flex: 5,
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  itemCount: items.length,
+                  itemCount: _items.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _ListItem(index: index);
+                    return ListItem(
+                      index: index,
+                      items: _items,
+                    );
                   },
                 ),
               ),
+              const SubtotalBox(),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ListItem extends StatefulWidget {
-  const _ListItem({super.key, required this.index});
-
-  final int index;
-
-  @override
-  State<_ListItem> createState() => _ListItemState();
-}
-
-class _ListItemState extends State<_ListItem> {
-  int _itemCount = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize the counter value from the map, or default to 0
-    _itemCount = itemCounterMap[widget.index] ?? 0;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(items[widget.index]),
-            const Text('\$0.01', style: TextStyle(color: Color(0xff6c6c6c)),),
-          ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _itemCount != 0
-                ? IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () => setState(() {
-                      _itemCount--;
-                      itemCounterMap[widget.index] = _itemCount; // Update map
-                    }),
-                  )
-                : Container(),
-            Text(
-              _itemCount.toString(),
-              style: const TextStyle(
-                fontSize: 17,
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => setState(
-                () {
-                  _itemCount++;
-                  itemCounterMap[widget.index] = _itemCount; // Update map
-                },
-              ),
-            ),
-          ],
         ),
       ),
     );

@@ -12,7 +12,6 @@ class WelcomeScreen extends StatelessWidget {
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(child: Container()),
                 const Center(
