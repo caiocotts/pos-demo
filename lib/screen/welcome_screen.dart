@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos/screen/item_selection_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -19,7 +20,8 @@ class WelcomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 20),
                     child: Text(
                       'Welcome to Cotts POS!',
-                      style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -29,9 +31,15 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 Expanded(child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 60, left: 10, right: 10),
+                  padding:
+                      const EdgeInsets.only(bottom: 60, left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ItemSelectionScreen(),
+                      ),
+                    ),
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
                     child: const Text(
                       'New Purchase',
