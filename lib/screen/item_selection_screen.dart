@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+final Map<int, int> itemCounterMap = {};
 final List<String> items = <String>[
   'B COORS LIGHT',
   'B COORS ORIG',
@@ -47,7 +48,6 @@ class ItemSelectionScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   itemCount: items.length,
                   itemBuilder: (BuildContext context, int index) {
-
                     return _ListItem(index: index);
                   },
                 ),
@@ -73,6 +73,13 @@ class _ListItemState extends State<_ListItem> {
   int _itemCount = 0;
 
   @override
+  void initState() {
+    super.initState();
+    // Initialize the counter value from the map, or default to 0
+    _itemCount = itemCounterMap[widget.index] ?? 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
@@ -80,7 +87,7 @@ class _ListItemState extends State<_ListItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(items[widget.index]),
-            const Text('\$0.01'),
+            const Text('\$0.01', style: TextStyle(color: Color(0xff6c6c6c)),),
           ],
         ),
         trailing: Row(
@@ -89,7 +96,10 @@ class _ListItemState extends State<_ListItem> {
             _itemCount != 0
                 ? IconButton(
                     icon: const Icon(Icons.remove),
-                    onPressed: () => setState(() => _itemCount--),
+                    onPressed: () => setState(() {
+                      _itemCount--;
+                      itemCounterMap[widget.index] = _itemCount; // Update map
+                    }),
                   )
                 : Container(),
             Text(
@@ -99,8 +109,14 @@ class _ListItemState extends State<_ListItem> {
               ),
             ),
             IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => setState(() => _itemCount++))
+              icon: const Icon(Icons.add),
+              onPressed: () => setState(
+                () {
+                  _itemCount++;
+                  itemCounterMap[widget.index] = _itemCount; // Update map
+                },
+              ),
+            ),
           ],
         ),
       ),
