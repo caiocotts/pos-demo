@@ -37,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ItemSelectionScreen(),
+                        builder: (context) => const ItemSelectionScreen(),
                       ),
                     ),
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
